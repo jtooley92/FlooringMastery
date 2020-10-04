@@ -69,7 +69,7 @@ public class FlooringMasteryController {
 
     }
     
-    private void addOrder() throws FloorMasteryDaoException{
+    private void addOrder() throws FloorMasteryDaoException {
         OrderFile newOrderFile = view.addOrderFileInfo();
         dao.addOrder(newOrderFile.getOrderNumber(), newOrderFile);
     }

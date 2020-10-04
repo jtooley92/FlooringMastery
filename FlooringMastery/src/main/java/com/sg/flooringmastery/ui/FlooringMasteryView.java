@@ -42,15 +42,16 @@ public class FlooringMasteryView {
 }
     
     public OrderFile addOrderFileInfo() {
-        String orderNumber = io.readString("Please enter order number");
+        //String orderNumber = io.readString("Please enter order number");
         String date = io.readString("Please enter date in MMDDYYYY format");
         String name = io.readString("Please enter name");
         String state = io.readString("Please enter state abbreviation");
         String product = io.readString("Please enter product type");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
-        LocalDate enteredDate = LocalDate.parse(date);
-        OrderFile currentOrder = new OrderFile(Integer.parseInt(orderNumber));
-        currentOrder.setDate(enteredDate);
+        LocalDate enteredDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMddyyyy"));
+        
+        OrderFile currentOrder = new OrderFile(1);
+        currentOrder.setDateInfo(date);
         currentOrder.setCustomerName(name);
         currentOrder.setState(state);
         currentOrder.setProductType(product);

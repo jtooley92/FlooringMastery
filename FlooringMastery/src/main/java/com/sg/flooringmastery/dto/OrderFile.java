@@ -15,10 +15,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class OrderFile {
 
-    private LocalDate now = LocalDate.now();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyyyy");
-    private LocalDate date = LocalDate.parse(now.format(formatter));
-    private String dateInfo = date.toString();
+    private String dateInfo;
     private Integer orderNumber;
     private String customerName;
     private String State;
@@ -36,8 +33,7 @@ public class OrderFile {
         this.orderNumber = orderNumber;
     }
     
-    public OrderFile(int orderNumber, String dateInfo) {
-        this.orderNumber = orderNumber;
+    public OrderFile(String dateInfo) {
         this.dateInfo = dateInfo;
     }
 
@@ -136,27 +132,7 @@ public class OrderFile {
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
-
-    public LocalDate getNow() {
-        return now;
-    }
-
-    public DateTimeFormatter getFormatter() {
-        return formatter;
-    }
-
-    public void setFormatter(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
+    
     public String getDateInfo() {
         return dateInfo;
     }
