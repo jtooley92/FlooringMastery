@@ -15,10 +15,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class OrderFile {
 
-    private String dateInfo;
     private Integer orderNumber;
     private String customerName;
-    private String State;
+    private String state;
     private BigDecimal taxRate;
     private String productType;
     private BigDecimal area;
@@ -32,15 +31,19 @@ public class OrderFile {
     public OrderFile(int orderNumber) {
         this.orderNumber = orderNumber;
     }
-    
-    public OrderFile(String dateInfo) {
-        this.dateInfo = dateInfo;
+
+    public OrderFile(int orderNumber, String customerName, String state, String productType, BigDecimal area) {
+        this.orderNumber = orderNumber;
+        this.customerName = customerName;
+        this.state = state;
+        this.productType = productType;
+        this.area = area;
     }
 
-    public OrderFile(int orderNumber, String dateInfo, String customerName, String State, String productType, BigDecimal area) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
-
+    
     public int getOrderNumber() {
         return orderNumber;
     }
@@ -54,11 +57,11 @@ public class OrderFile {
     }
 
     public String getState() {
-        return State;
+        return state;
     }
 
     public void setState(String State) {
-        this.State = State;
+        this.state = State;
     }
 
     public BigDecimal getTaxRate() {
@@ -131,14 +134,6 @@ public class OrderFile {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
-    }
-    
-    public String getDateInfo() {
-        return dateInfo;
-    }
-
-    public void setDateInfo(String dateInfo) {
-        this.dateInfo = dateInfo;
     }
 
 }

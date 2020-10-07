@@ -17,10 +17,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -30,8 +32,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     private static LocalDate date = LocalDate.now();
     public static String dateString = DateTimeFormatter.ofPattern("MMddyyyy").format(date);
     public static final String DELIMITER = ",";
-    public static String ORDER_FILE = ("Orders_" + dateString + ".txt");
-    public static File dir = new File("C:\\Users\\Jtooleyful\\Documents\\NetBeansProjects\\FlooringMastery\\FlooringMastery\\Orders", ORDER_FILE);
+    public static String ORDER_FILE = ("Orders/orders_" + dateString + ".txt");
     private Map<Integer, OrderFile> ordersMap = new HashMap<>();
 
     @Override
@@ -40,12 +41,14 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         loadOrders(); 
         
         } catch(FloorMasteryDaoException e) {
-            
+            // catches error thrown by loadorders not having an actual file yet and forces new file to be made.
         }
-        OrderFile newOrder = ordersMap.put(orderNumber, orderFile);
-        date = LocalDate.parse(orderFile.getDateInfo(), DateTimeFormatter.ofPattern("MMddyyyy"));
+        Set<Integer> keyset = ordersMap.keySet();
+        int maxOrderNumber = Collections.max(keyset) + 1;
+        orderFile.setOrderNumber(maxOrderNumber);
+        OrderFile newOrder = ordersMap.put(maxOrderNumber, orderFile);
         writeOrders();
-
+       
         return newOrder;
     }
 
@@ -125,7 +128,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
    private void writeOrders() throws FloorMasteryDaoException{
        PrintWriter out;
         try{
-        out = new PrintWriter(new FileWriter(dir));
+        out = new PrintWriter(new FileWriter(ORDER_FILE));
         }catch(IOException e){
             throw new FloorMasteryDaoException("could not save orders data", e);
         }
