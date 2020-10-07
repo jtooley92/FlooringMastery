@@ -69,7 +69,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-   private String marshallOrderFile(OrderFile orderFile) {
+    private String marshallOrderFile(OrderFile orderFile) {
        String orderFileAsText = orderFile.getOrderNumber() + DELIMITER;
         orderFileAsText += orderFile.getCustomerName() + DELIMITER;
         orderFileAsText += orderFile.getState() + DELIMITER;
