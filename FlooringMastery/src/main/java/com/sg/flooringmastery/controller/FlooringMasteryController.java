@@ -7,7 +7,11 @@ package com.sg.flooringmastery.controller;
 
 import com.sg.flooringmastery.dao.FloorMasteryDaoException;
 import com.sg.flooringmastery.dao.FlooringMasteryDao;
+import com.sg.flooringmastery.dao.FlooringMasteryProductsDaoException;
+import com.sg.flooringmastery.dao.FlooringMasteryTaxesDaoException;
 import com.sg.flooringmastery.dto.OrderFile;
+import com.sg.flooringmastery.service.FlooringMasteryService;
+import com.sg.flooringmastery.service.FlooringMasteryServiceImpl;
 import com.sg.flooringmastery.ui.FlooringMasteryView;
 import java.util.List;
 
@@ -19,9 +23,10 @@ public class FlooringMasteryController {
 
     private FlooringMasteryDao dao;
     private FlooringMasteryView view;
+    private FlooringMasteryService service;
 
-    public FlooringMasteryController(FlooringMasteryDao dao, FlooringMasteryView view) {
-        this.dao = dao;
+    public FlooringMasteryController(FlooringMasteryService service, FlooringMasteryView view) {
+        this.service = service;
         this.view = view;
     }
 
@@ -53,7 +58,7 @@ public class FlooringMasteryController {
                         break;
                 }
             }
-        } catch (FloorMasteryDaoException e) {
+        } catch (FloorMasteryDaoException | FlooringMasteryTaxesDaoException | FlooringMasteryProductsDaoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -64,13 +69,13 @@ public class FlooringMasteryController {
 
     private void displayOrders() throws FloorMasteryDaoException {
         String date = view.getDisplayOrdersDate();
-        List<OrderFile> ordersList = dao.getAllOrders(date);
+        List<OrderFile> ordersList = service.getAllOrders(date);
         view.displayOrdersList(ordersList);
 
     }
     
-    private void addOrder() throws FloorMasteryDaoException {
+    private void addOrder() throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException {
         OrderFile newOrderFile = view.addOrderFileInfo();
-        dao.addOrder(newOrderFile.getOrderNumber(), newOrderFile);
+        service.addOrder(newOrderFile.getOrderNumber(), newOrderFile);
     }
 }

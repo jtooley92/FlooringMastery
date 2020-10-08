@@ -8,6 +8,8 @@ package com.sg.flooringmastery;
 import com.sg.flooringmastery.controller.FlooringMasteryController;
 import com.sg.flooringmastery.dao.FlooringMasteryDao;
 import com.sg.flooringmastery.dao.FlooringMasteryDaoFileImpl;
+import com.sg.flooringmastery.service.FlooringMasteryService;
+import com.sg.flooringmastery.service.FlooringMasteryServiceImpl;
 import com.sg.flooringmastery.ui.FlooringMasteryView;
 import com.sg.flooringmastery.ui.UserIO;
 import com.sg.flooringmastery.ui.UserIOConsoleImpl;
@@ -20,8 +22,9 @@ public class FlooringMasteryApp {
     public static void main(String[] args) {
         UserIO myIo = new UserIOConsoleImpl();
         FlooringMasteryDao myDao = new FlooringMasteryDaoFileImpl();
+        FlooringMasteryService myService = new FlooringMasteryServiceImpl();
         FlooringMasteryView myView = new FlooringMasteryView(myIo);
-        FlooringMasteryController controller = new FlooringMasteryController(myDao, myView);
+        FlooringMasteryController controller = new FlooringMasteryController(myService, myView);
         controller.run();
     }
 }
