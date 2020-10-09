@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -43,8 +44,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         } catch(FloorMasteryDaoException e) {
             // catches error thrown by loadorders not having an actual file yet and forces new file to be made.
         }
+        
         Set<Integer> keyset = ordersMap.keySet();
-        int maxOrderNumber = Collections.max(keyset) + 1;
+        int maxOrderNumber;
+        try{maxOrderNumber = Collections.max(keyset) + 1;
+        } catch(NoSuchElementException e){
+            maxOrderNumber = 1;
+        }
         orderFile.setOrderNumber(maxOrderNumber);
         OrderFile newOrder = ordersMap.put(maxOrderNumber, orderFile);
         writeOrders();

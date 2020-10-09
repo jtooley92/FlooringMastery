@@ -8,6 +8,10 @@ package com.sg.flooringmastery;
 import com.sg.flooringmastery.controller.FlooringMasteryController;
 import com.sg.flooringmastery.dao.FlooringMasteryDao;
 import com.sg.flooringmastery.dao.FlooringMasteryDaoFileImpl;
+import com.sg.flooringmastery.dao.FlooringMasteryProductsDao;
+import com.sg.flooringmastery.dao.FlooringMasteryProductsDaoImpl;
+import com.sg.flooringmastery.dao.FlooringMasteryTaxesDao;
+import com.sg.flooringmastery.dao.FlooringMasteryTaxesDaoImpl;
 import com.sg.flooringmastery.service.FlooringMasteryService;
 import com.sg.flooringmastery.service.FlooringMasteryServiceImpl;
 import com.sg.flooringmastery.ui.FlooringMasteryView;
@@ -22,7 +26,9 @@ public class FlooringMasteryApp {
     public static void main(String[] args) {
         UserIO myIo = new UserIOConsoleImpl();
         FlooringMasteryDao myDao = new FlooringMasteryDaoFileImpl();
-        FlooringMasteryService myService = new FlooringMasteryServiceImpl();
+        FlooringMasteryTaxesDao taxDao = new FlooringMasteryTaxesDaoImpl();
+        FlooringMasteryProductsDao productsDao = new FlooringMasteryProductsDaoImpl();
+        FlooringMasteryService myService = new FlooringMasteryServiceImpl(myDao, taxDao, productsDao);
         FlooringMasteryView myView = new FlooringMasteryView(myIo);
         FlooringMasteryController controller = new FlooringMasteryController(myService, myView);
         controller.run();
