@@ -58,6 +58,7 @@ public class FlooringMasteryTaxesDaoImpl implements FlooringMasteryTaxesDao {
          
          String currentLine;
          Taxes selectedTaxes;
+         sc.nextLine();
          while (sc.hasNextLine()){
              currentLine = sc.nextLine();
              selectedTaxes = unmarshallTaxFile(currentLine);

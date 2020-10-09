@@ -55,6 +55,7 @@ public class FlooringMasteryProductsDaoImpl implements FlooringMasteryProductsDa
          
          String currentLine;
          Products selectedProduct;
+         sc.nextLine();
          while (sc.hasNextLine()){
              currentLine = sc.nextLine();
              selectedProduct = unmarshallProductsFile(currentLine);

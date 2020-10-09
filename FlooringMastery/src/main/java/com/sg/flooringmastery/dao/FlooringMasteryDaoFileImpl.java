@@ -38,19 +38,17 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
 
     @Override
     public OrderFile addOrder(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
-        try{
-        loadOrders(); 
-        
-        } catch(FloorMasteryDaoException e) {
-            // catches error thrown by loadorders not having an actual file yet and forces new file to be made.
-        }
-        
         Set<Integer> keyset = ordersMap.keySet();
         int maxOrderNumber;
-        try{maxOrderNumber = Collections.max(keyset) + 1;
-        } catch(NoSuchElementException e){
+        try{
+        loadOrders(); 
+        maxOrderNumber = Collections.max(keyset) + 1;
+        
+        } catch(FloorMasteryDaoException | NoSuchElementException e) {
+            // catches error thrown by loadorders not having an actual file yet and forces new file to be made.
             maxOrderNumber = 1;
         }
+        
         orderFile.setOrderNumber(maxOrderNumber);
         OrderFile newOrder = ordersMap.put(maxOrderNumber, orderFile);
         writeOrders();
