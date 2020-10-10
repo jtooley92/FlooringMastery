@@ -56,7 +56,6 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
 
     @Override
     public List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException {
-        dao.getAllOrders(date);
 
         return dao.getAllOrders(date);
     }

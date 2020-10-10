@@ -33,7 +33,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     private static LocalDate date = LocalDate.now();
     public static String dateString = DateTimeFormatter.ofPattern("MMddyyyy").format(date);
     public static final String DELIMITER = ",";
-    public static String ORDER_FILE = ("Orders/orders_" + dateString + ".txt");
+    public static String ORDER_FILE;
     private Map<Integer, OrderFile> ordersMap = new HashMap<>();
 
     @Override
@@ -41,7 +41,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         Set<Integer> keyset = ordersMap.keySet();
         int maxOrderNumber;
         try{
-        loadOrders(); 
+        loadOrders(dateString); 
         maxOrderNumber = Collections.max(keyset) + 1;
         
         } catch(FloorMasteryDaoException | NoSuchElementException e) {
@@ -51,15 +51,15 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         
         orderFile.setOrderNumber(maxOrderNumber);
         OrderFile newOrder = ordersMap.put(maxOrderNumber, orderFile);
-        writeOrders();
+        writeOrders(dateString);
        
         return newOrder;
     }
 
     @Override
     public List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException {
-        loadOrders();
-            
+        loadOrders(date);
+ 
         return new ArrayList(ordersMap.values());
     }
 
@@ -69,8 +69,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
 
     @Override
-    public OrderFile editOrder(int orderNumber, OrderFile orderFile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrderFile editOrder(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
+        String date = "0";
+        loadOrders(date);
+        OrderFile editOrder = ordersMap.replace(orderNumber, orderFile);
+        writeOrders(date);
+        
+        return editOrder;
     }
     
     private String marshallOrderFile(OrderFile orderFile) {
@@ -110,7 +115,8 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
        return orderFromFile;
    }
    
-   private void loadOrders() throws FloorMasteryDaoException {
+   private void loadOrders(String date) throws FloorMasteryDaoException {
+        ORDER_FILE = ("Orders/orders_" + date + ".txt");
         Scanner sc;
          try {
         sc = new Scanner(
@@ -129,7 +135,8 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
          sc.close();
    }
    
-   private void writeOrders() throws FloorMasteryDaoException{
+   private void writeOrders(String date) throws FloorMasteryDaoException{
+       ORDER_FILE = ("Orders/orders_" + date + ".txt");
        PrintWriter out;
         try{
         out = new PrintWriter(new FileWriter(ORDER_FILE));
