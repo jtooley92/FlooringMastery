@@ -17,5 +17,5 @@ public interface FlooringMasteryDao {
     OrderFile addOrder(int orderNumber, OrderFile orderFile)throws FloorMasteryDaoException;
     List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException;
     OrderFile removeOrder(int orderNumber, String date)throws FloorMasteryDaoException;
-    OrderFile editOrder(int orderNumber, OrderFile orderFile)throws FloorMasteryDaoException;
+    OrderFile editOrder(int orderNumber, OrderFile orderFile, String date)throws FloorMasteryDaoException;
 }

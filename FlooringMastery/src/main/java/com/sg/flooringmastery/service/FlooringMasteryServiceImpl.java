@@ -62,12 +62,21 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
 
     @Override
     public OrderFile removeOrder(int orderNumber, String date) throws FloorMasteryDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return dao.removeOrder(orderNumber, date);
     }
 
     @Override
-    public OrderFile editOrder(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrderFile editOrder(int orderNumber, OrderFile orderFile, String date) throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException {
+        OrderFile newTaxInfo = getTaxRate(orderNumber, orderFile);
+        OrderFile newProductInfo = getCost(orderNumber, orderFile);
+        OrderFile materialCostInfo = getMaterialCost(orderNumber, orderFile);
+        OrderFile laborCostInfo = getLaborCost(orderNumber, orderFile);
+        OrderFile taxTotalInfo = getTax(orderNumber, orderFile);
+        OrderFile totalCostInfo = getTotal(orderNumber, orderFile);
+        
+        OrderFile editOrder = dao.editOrder(orderNumber, orderFile, date);
+        return editOrder;
     }
 
     @Override

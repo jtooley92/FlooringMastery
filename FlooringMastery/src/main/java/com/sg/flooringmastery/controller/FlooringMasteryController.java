@@ -45,10 +45,10 @@ public class FlooringMasteryController {
                         addOrder();
                         break;
                     case 3:
-                        //editOrder
+                        editOrder();
                         break;
                     case 4:
-                        //removeorder
+                        removeOrder();
                         break;
                     case 5:
                         //exportData
@@ -77,5 +77,20 @@ public class FlooringMasteryController {
     private void addOrder() throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException {
         OrderFile newOrderFile = view.addOrderFileInfo();
         service.addOrder(newOrderFile.getOrderNumber(), newOrderFile);
+    }
+    
+    private void removeOrder() throws FloorMasteryDaoException {
+        int orderNumber = view.getOrderNumber();
+        String date = view.getDisplayOrdersDate();
+        OrderFile removedOrder = service.removeOrder(orderNumber, date);
+        view.displayRemoveResult(removedOrder);
+    }
+    
+    private void editOrder() throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException {
+        String date = view.getDisplayOrdersDate();
+        int orderNumber = view.getOrderNumber();
+        OrderFile orderFile = view.editOrderFileInfo(orderNumber);
+        OrderFile editedOrder = service.editOrder(orderNumber, orderFile, date);
+        
     }
 }

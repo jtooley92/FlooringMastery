@@ -22,7 +22,7 @@ public interface FlooringMasteryService {
     OrderFile addOrder(int orderNumber, OrderFile orderFile)throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException;
     List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException;
     OrderFile removeOrder(int orderNumber, String date)throws FloorMasteryDaoException;
-    OrderFile editOrder(int orderNumber, OrderFile orderFile)throws FloorMasteryDaoException;
+    OrderFile editOrder(int orderNumber, OrderFile orderFile, String date)throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException;
     OrderFile getTaxRate(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException;
     OrderFile getCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryProductsDaoException;
     List<Taxes> readTaxFile()throws FlooringMasteryTaxesDaoException;

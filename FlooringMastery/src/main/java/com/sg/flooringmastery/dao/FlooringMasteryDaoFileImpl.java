@@ -64,18 +64,26 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
 
     @Override
-    public OrderFile removeOrder(int orderNumber, String date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrderFile removeOrder(int orderNumber, String date) throws FloorMasteryDaoException {
+        loadOrders(date);
+        OrderFile removedOrder = ordersMap.remove(orderNumber);
+        writeOrders(date);
+        
+        return removedOrder;
     }
 
     @Override
-    public OrderFile editOrder(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
-        String date = "0";
+    public OrderFile editOrder(int orderNumber, OrderFile orderFile, String date) throws FloorMasteryDaoException {
         loadOrders(date);
-        OrderFile editOrder = ordersMap.replace(orderNumber, orderFile);
+        
+        if (ordersMap.containsKey(orderNumber)) {
+        OrderFile editOrder = ordersMap.put(orderNumber, orderFile);
         writeOrders(date);
         
         return editOrder;
+        } else {
+            throw new FloorMasteryDaoException("order does not exist");
+        }
     }
     
     private String marshallOrderFile(OrderFile orderFile) {

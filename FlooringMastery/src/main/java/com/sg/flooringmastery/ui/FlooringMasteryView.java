@@ -41,6 +41,12 @@ public class FlooringMasteryView {
     return date;
 }
     
+    public int getOrderNumber() {
+        int orderNumber = io.readInt("Please enter order number");
+        
+        return orderNumber;
+    }
+    
     public OrderFile addOrderFileInfo() {
         //String orderNumber = io.readString("Please enter order number");
         String name = io.readString("Please enter name");
@@ -76,4 +82,27 @@ public class FlooringMasteryView {
        io.readString("Please hit enter to continue.");
        
     }
+    
+     public void displayRemoveResult(OrderFile orderFileRecord) {
+        if (orderFileRecord != null) {
+            io.print("Order successfully removed.");
+        } else {
+            io.print("No such order.");
+        }
+        io.readString("Please hit enter to continue.");
+    }
+     
+     public OrderFile editOrderFileInfo(int orderNumber) {
+        String name = io.readString("Please enter name");
+        String state = io.readString("Please enter state abbreviation");
+        String product = io.readString("Please enter product type");
+        BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
+        
+        OrderFile currentOrder = new OrderFile(orderNumber);
+        currentOrder.setCustomerName(name);
+        currentOrder.setState(state);
+        currentOrder.setProductType(product);
+        currentOrder.setArea(area);
+        return currentOrder;
+     }
 }
