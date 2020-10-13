@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
+import static java.nio.file.StandardCopyOption.*;
 
 /**
  *
@@ -52,7 +53,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         orderFile.setOrderNumber(maxOrderNumber);
         OrderFile newOrder = ordersMap.put(maxOrderNumber, orderFile);
         writeOrders(dateString);
-       
+             
         return newOrder;
     }
 
@@ -68,7 +69,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         loadOrders(date);
         OrderFile removedOrder = ordersMap.remove(orderNumber);
         writeOrders(date);
-        
+                
         return removedOrder;
     }
 
@@ -160,4 +161,18 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         }
         out.close();
    }
-}
+   
+   private void exportOrders(String date) throws FloorMasteryDaoException{
+       try (FileReader fr = new FileReader(ORDER_FILE);
+             FileWriter fw = new FileWriter("Backup/DataExport.txt")) {
+            int c = fr.read();
+            while(c!=-1) {
+                fw.write(c);
+                c = fr.read();
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+   }
+}    
+       

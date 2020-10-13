@@ -60,6 +60,7 @@ public class FlooringMasteryController {
             }
         } catch (FloorMasteryDaoException | FlooringMasteryTaxesDaoException | FlooringMasteryProductsDaoException e) {
             System.out.println(e.getMessage());
+            run();
         }
     }
 

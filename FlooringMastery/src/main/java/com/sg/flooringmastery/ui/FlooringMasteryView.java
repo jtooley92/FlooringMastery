@@ -5,6 +5,8 @@
  */
 package com.sg.flooringmastery.ui;
 
+import com.sg.flooringmastery.dao.FloorMasteryDaoException;
+import com.sg.flooringmastery.dao.FlooringMasteryTaxesDaoException;
 import com.sg.flooringmastery.dto.OrderFile;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -92,17 +94,36 @@ public class FlooringMasteryView {
         io.readString("Please hit enter to continue.");
     }
      
-     public OrderFile editOrderFileInfo(int orderNumber) {
+     public OrderFile editOrderFileInfo(int orderNumber) throws FloorMasteryDaoException{
         String name = io.readString("Please enter name");
         String state = io.readString("Please enter state abbreviation");
         String product = io.readString("Please enter product type");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
         
+         System.out.println(name);
+         System.out.println(state);
+         System.out.println(product);
+         System.out.println(area);
+         String answer = io.readString("would you like to commit these changes? (y/n)").toLowerCase();
+        if (answer.equals("yes".toLowerCase()) || answer.equals("y".toLowerCase())){
         OrderFile currentOrder = new OrderFile(orderNumber);
         currentOrder.setCustomerName(name);
         currentOrder.setState(state);
         currentOrder.setProductType(product);
         currentOrder.setArea(area);
+        
         return currentOrder;
+        
+        } else {
+            
+            throw new FloorMasteryDaoException("changes not commited");
+        }
+       }
+
+     
+//      public String printOrderAndConfirm(OrderFile orderFile){
+//          System.out.println(orderFile);
+//          io.readString("are you sure you want to delete this file? (y/n)" ).toLowerCase();
+//          
+//      }
      }
-}
