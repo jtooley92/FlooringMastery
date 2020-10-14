@@ -34,8 +34,9 @@ public class FlooringMasteryController {
         boolean keepGoing = true;
         int menuSelection = 0;
 
-        try {
+       
             while (keepGoing) {
+                try{
                 menuSelection = getMenuSelection();
                 switch (menuSelection) {
                     case 1:
@@ -51,16 +52,16 @@ public class FlooringMasteryController {
                         removeOrder();
                         break;
                     case 5:
-                        //exportData
+                        exportData();
                         break;
                     case 6:
                         keepGoing = false;
                         break;
                 }
-            }
-        } catch (FloorMasteryDaoException | FlooringMasteryTaxesDaoException | FlooringMasteryProductsDaoException e) {
+            }catch (FloorMasteryDaoException | FlooringMasteryTaxesDaoException | FlooringMasteryProductsDaoException e) {
             System.out.println(e.getMessage());
-            run();
+        } 
+            
         }
     }
 
@@ -83,8 +84,14 @@ public class FlooringMasteryController {
     private void removeOrder() throws FloorMasteryDaoException {
         int orderNumber = view.getOrderNumber();
         String date = view.getDisplayOrdersDate();
+        OrderFile printOrder = service.getOrder(orderNumber, date);
+        String yesOrNo = view.printOrderAndConfirm(printOrder);
+        if (yesOrNo.equals("yes".toLowerCase()) || yesOrNo.equals("y".toLowerCase()))  {
         OrderFile removedOrder = service.removeOrder(orderNumber, date);
         view.displayRemoveResult(removedOrder);
+        } else{
+            throw new FloorMasteryDaoException("order not removed");
+        }
     }
     
     private void editOrder() throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException {
@@ -93,5 +100,9 @@ public class FlooringMasteryController {
         OrderFile orderFile = view.editOrderFileInfo(orderNumber);
         OrderFile editedOrder = service.editOrder(orderNumber, orderFile, date);
         
+    }
+    
+    private void exportData() throws FloorMasteryDaoException {
+        service.export();
     }
 }

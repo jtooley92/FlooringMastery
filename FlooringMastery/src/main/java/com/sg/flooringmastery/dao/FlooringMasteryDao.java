@@ -18,4 +18,6 @@ public interface FlooringMasteryDao {
     List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException;
     OrderFile removeOrder(int orderNumber, String date)throws FloorMasteryDaoException;
     OrderFile editOrder(int orderNumber, OrderFile orderFile, String date)throws FloorMasteryDaoException;
+    void export()throws FloorMasteryDaoException;
+    OrderFile getOrder(int orderNumber, String date)throws FloorMasteryDaoException;
 }

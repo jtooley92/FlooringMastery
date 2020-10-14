@@ -25,7 +25,8 @@ public class FlooringMasteryView {
         this.io = io;
     }
 
-    public int printMenuAndGetSelection(){
+    public int printMenuAndGetSelection()throws FloorMasteryDaoException {
+        try{
         io.print("<<Flooring Program>>");
         io.print("1. Display Orders");
         io.print("2. Add an Order");
@@ -35,6 +36,9 @@ public class FlooringMasteryView {
         io.print("6. Quit");
         
         return io.readInt("Please select from the above choices", 1, 6);
+        }catch (NumberFormatException e){
+            throw new FloorMasteryDaoException("please enter a number between 1 and 6");
+        }
     }
     
     public String getDisplayOrdersDate() {
@@ -49,19 +53,25 @@ public class FlooringMasteryView {
         return orderNumber;
     }
     
-    public OrderFile addOrderFileInfo() {
+    public OrderFile addOrderFileInfo() throws FloorMasteryDaoException {
         //String orderNumber = io.readString("Please enter order number");
         String name = io.readString("Please enter name");
         String state = io.readString("Please enter state abbreviation");
         String product = io.readString("Please enter product type");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
-        
+        if(area.compareTo(new BigDecimal("100")) == -1){
+        throw new  FloorMasteryDaoException("order must be at least 100 sq ft");
+    }else if (name.equals("")){
+            throw new FloorMasteryDaoException("name cannot be empty");
+        } else{
         OrderFile currentOrder = new OrderFile(1);
         currentOrder.setCustomerName(name);
         currentOrder.setState(state);
         currentOrder.setProductType(product);
         currentOrder.setArea(area);
         return currentOrder;
+        
+        }    
     }
     
     public void displayOrdersList(List<OrderFile> orderList) {
@@ -99,11 +109,16 @@ public class FlooringMasteryView {
         String state = io.readString("Please enter state abbreviation");
         String product = io.readString("Please enter product type");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
-        
+        if(area.compareTo(new BigDecimal("100")) == -1){
+            throw new FloorMasteryDaoException("order must be at least 100 sq feet");
+        }else if (name.equals("")){
+            throw new FloorMasteryDaoException("name cannot be empty");
+        }else{
          System.out.println(name);
          System.out.println(state);
          System.out.println(product);
          System.out.println(area);
+        }
          String answer = io.readString("would you like to commit these changes? (y/n)").toLowerCase();
         if (answer.equals("yes".toLowerCase()) || answer.equals("y".toLowerCase())){
         OrderFile currentOrder = new OrderFile(orderNumber);
@@ -121,9 +136,14 @@ public class FlooringMasteryView {
        }
 
      
-//      public String printOrderAndConfirm(OrderFile orderFile){
-//          System.out.println(orderFile);
-//          io.readString("are you sure you want to delete this file? (y/n)" ).toLowerCase();
-//          
-//      }
+      public String printOrderAndConfirm(OrderFile orderFile) throws FloorMasteryDaoException{
+          try{
+          System.out.println(orderFile.toString());
+          String yesOrNo = io.readString("are you sure you want to delete this file? (y/n)" ).toLowerCase();
+          
+          return yesOrNo;
+          }catch(NullPointerException e){
+              throw new FloorMasteryDaoException("order number does not exist");
+          }
+      }
      }

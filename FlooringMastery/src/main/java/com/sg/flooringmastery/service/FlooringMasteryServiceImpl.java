@@ -7,7 +7,6 @@ package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FloorMasteryDaoException;
 import com.sg.flooringmastery.dao.FlooringMasteryDao;
-import com.sg.flooringmastery.dao.FlooringMasteryExportDao;
 import com.sg.flooringmastery.dao.FlooringMasteryProductsDao;
 import com.sg.flooringmastery.dao.FlooringMasteryProductsDaoException;
 import com.sg.flooringmastery.dao.FlooringMasteryTaxesDao;
@@ -28,7 +27,6 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
     FlooringMasteryDao dao;
     FlooringMasteryTaxesDao taxDao;
     FlooringMasteryProductsDao productsDao;
-    FlooringMasteryExportDao exportDao;
 
     public FlooringMasteryServiceImpl() {
     }
@@ -187,6 +185,18 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         orderFile.setTotal(total.setScale(2, RoundingMode.CEILING));
         
         return orderFile;
+    }
+
+    @Override
+    public void export() throws FloorMasteryDaoException {
+        dao.export();
+    }
+
+    @Override
+    public OrderFile getOrder(int orderNumber, String date) throws FloorMasteryDaoException {
+       OrderFile gotOrder = dao.getOrder(orderNumber, date);
+       
+       return gotOrder;
     }
 
 }

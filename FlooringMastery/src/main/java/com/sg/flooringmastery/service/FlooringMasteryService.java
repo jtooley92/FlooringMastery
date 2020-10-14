@@ -31,4 +31,6 @@ public interface FlooringMasteryService {
     OrderFile getLaborCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
     OrderFile getTax(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
     OrderFile getTotal(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
+    OrderFile getOrder(int orderNumber, String date) throws FloorMasteryDaoException;
+    void export() throws FloorMasteryDaoException;
 }

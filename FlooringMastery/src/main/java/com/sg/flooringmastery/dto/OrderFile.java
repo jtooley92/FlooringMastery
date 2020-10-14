@@ -8,6 +8,7 @@ package com.sg.flooringmastery.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  *
@@ -136,4 +137,79 @@ public class OrderFile {
         this.total = total;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.orderNumber);
+        hash = 79 * hash + Objects.hashCode(this.customerName);
+        hash = 79 * hash + Objects.hashCode(this.state);
+        hash = 79 * hash + Objects.hashCode(this.taxRate);
+        hash = 79 * hash + Objects.hashCode(this.productType);
+        hash = 79 * hash + Objects.hashCode(this.area);
+        hash = 79 * hash + Objects.hashCode(this.costPerSquareFoot);
+        hash = 79 * hash + Objects.hashCode(this.laborCostPerSquareFoot);
+        hash = 79 * hash + Objects.hashCode(this.materialCost);
+        hash = 79 * hash + Objects.hashCode(this.laborCost);
+        hash = 79 * hash + Objects.hashCode(this.tax);
+        hash = 79 * hash + Objects.hashCode(this.total);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrderFile other = (OrderFile) obj;
+        if (!Objects.equals(this.customerName, other.customerName)) {
+            return false;
+        }
+        if (!Objects.equals(this.state, other.state)) {
+            return false;
+        }
+        if (!Objects.equals(this.productType, other.productType)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderNumber, other.orderNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxRate, other.taxRate)) {
+            return false;
+        }
+        if (!Objects.equals(this.area, other.area)) {
+            return false;
+        }
+        if (!Objects.equals(this.costPerSquareFoot, other.costPerSquareFoot)) {
+            return false;
+        }
+        if (!Objects.equals(this.laborCostPerSquareFoot, other.laborCostPerSquareFoot)) {
+            return false;
+        }
+        if (!Objects.equals(this.materialCost, other.materialCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.laborCost, other.laborCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.tax, other.tax)) {
+            return false;
+        }
+        if (!Objects.equals(this.total, other.total)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return  + orderNumber + "\n" + customerName + "\n" + state + "\n" + taxRate + "\n" + productType + "\n" + area + "\n" + costPerSquareFoot + "\n" + laborCostPerSquareFoot + "\n" + materialCost + "\n" + laborCost + "\n" + tax + "\n" + total ;
+    }
+
+    
 }
