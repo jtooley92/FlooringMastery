@@ -29,16 +29,28 @@ public class OrderFile {
     private BigDecimal tax;
     private BigDecimal total;
 
+    public OrderFile() {
+   
+    }
+    
     public OrderFile(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public OrderFile(int orderNumber, String customerName, String state, String productType, BigDecimal area) {
+    public OrderFile(int orderNumber, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal laborCostPerSquareFoot, BigDecimal materialCost, BigDecimal laborCost, BigDecimal tax, BigDecimal total ) {
         this.orderNumber = orderNumber;
         this.customerName = customerName;
         this.state = state;
+        this.taxRate =taxRate;
         this.productType = productType;
         this.area = area;
+        this.costPerSquareFoot = costPerSquareFoot;
+        this.laborCostPerSquareFoot = laborCostPerSquareFoot;
+        this.materialCost = materialCost;
+        this.laborCost = laborCost;
+        this.tax = tax;
+        this.total = total;
+        
     }
 
     public void setOrderNumber(Integer orderNumber) {

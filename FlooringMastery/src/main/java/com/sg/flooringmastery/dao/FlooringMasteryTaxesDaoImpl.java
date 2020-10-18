@@ -16,11 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class FlooringMasteryTaxesDaoImpl implements FlooringMasteryTaxesDao {
 
     public static final String DELIMITER = ",";

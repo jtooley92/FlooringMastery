@@ -12,15 +12,19 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class FlooringMasteryView {
 
     private UserIO io;
-
+    
+    @Autowired
     public FlooringMasteryView(UserIO io) {
         this.io = io;
     }
@@ -54,10 +58,10 @@ public class FlooringMasteryView {
     }
     
     public OrderFile addOrderFileInfo() throws FloorMasteryDaoException {
-        //String orderNumber = io.readString("Please enter order number");
+        try{
         String name = io.readString("Please enter name");
         String state = io.readString("Please enter state abbreviation");
-        String product = io.readString("Please enter product type");
+        String product = io.readString("Please enter product type starting with a capital letter");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
         if(area.compareTo(new BigDecimal("100")) == -1){
         throw new  FloorMasteryDaoException("order must be at least 100 sq ft");
@@ -66,12 +70,15 @@ public class FlooringMasteryView {
         } else{
         OrderFile currentOrder = new OrderFile(1);
         currentOrder.setCustomerName(name);
-        currentOrder.setState(state);
-        currentOrder.setProductType(product);
+        currentOrder.setState(state.toUpperCase());
+        currentOrder.setProductType(product.substring(0, 1).toUpperCase() + product.substring(1).toLowerCase());
         currentOrder.setArea(area);
         return currentOrder;
         
-        }    
+        }
+        }catch(NumberFormatException e){
+            throw new FloorMasteryDaoException("please enter a numerical digit");
+        }
     }
     
     public void displayOrdersList(List<OrderFile> orderList) {
@@ -105,10 +112,12 @@ public class FlooringMasteryView {
     }
      
      public OrderFile editOrderFileInfo(int orderNumber) throws FloorMasteryDaoException{
+         try{
         String name = io.readString("Please enter name");
         String state = io.readString("Please enter state abbreviation");
-        String product = io.readString("Please enter product type");
+        String product = io.readString("Please enter product type starting with a capital letter");
         BigDecimal area = io.readBigDecimal("Please enter area in sqFt");
+        
         if(area.compareTo(new BigDecimal("100")) == -1){
             throw new FloorMasteryDaoException("order must be at least 100 sq feet");
         }else if (name.equals("")){
@@ -119,11 +128,12 @@ public class FlooringMasteryView {
          System.out.println(product);
          System.out.println(area);
         }
+        
          String answer = io.readString("would you like to commit these changes? (y/n)").toLowerCase();
         if (answer.equals("yes".toLowerCase()) || answer.equals("y".toLowerCase())){
         OrderFile currentOrder = new OrderFile(orderNumber);
         currentOrder.setCustomerName(name);
-        currentOrder.setState(state);
+        currentOrder.setState(state.toUpperCase());
         currentOrder.setProductType(product);
         currentOrder.setArea(area);
         
@@ -133,6 +143,9 @@ public class FlooringMasteryView {
             
             throw new FloorMasteryDaoException("changes not commited");
         }
+        }catch(NumberFormatException e){
+            throw new FloorMasteryDaoException("please enter a numerical digit");
+}
        }
 
      

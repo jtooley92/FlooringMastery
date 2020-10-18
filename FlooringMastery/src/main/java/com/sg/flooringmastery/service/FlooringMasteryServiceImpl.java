@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,11 +17,14 @@ import com.sg.flooringmastery.dto.Taxes;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class FlooringMasteryServiceImpl implements FlooringMasteryService {
 
     FlooringMasteryDao dao;
@@ -30,7 +33,7 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
 
     public FlooringMasteryServiceImpl() {
     }
-
+    @Autowired
     public FlooringMasteryServiceImpl(FlooringMasteryDao dao, FlooringMasteryTaxesDao taxDao, FlooringMasteryProductsDao productsDao) {
         this.dao = dao;
         this.taxDao = taxDao;

@@ -14,17 +14,20 @@ import com.sg.flooringmastery.service.FlooringMasteryService;
 import com.sg.flooringmastery.service.FlooringMasteryServiceImpl;
 import com.sg.flooringmastery.ui.FlooringMasteryView;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class FlooringMasteryController {
 
-    private FlooringMasteryDao dao;
     private FlooringMasteryView view;
     private FlooringMasteryService service;
-
+    
+    @Autowired
     public FlooringMasteryController(FlooringMasteryService service, FlooringMasteryView view) {
         this.service = service;
         this.view = view;
@@ -65,7 +68,7 @@ public class FlooringMasteryController {
         }
     }
 
-    private int getMenuSelection() {
+    private int getMenuSelection() throws FloorMasteryDaoException {
         return view.printMenuAndGetSelection();
     }
 

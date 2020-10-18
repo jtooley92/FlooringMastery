@@ -25,11 +25,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
 import static java.nio.file.StandardCopyOption.*;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
 
     private static LocalDate date = LocalDate.now();
@@ -38,6 +40,15 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     public static String ORDER_FILE;
     public static final String EXPORT_FILE = "Backup/DataExport.txt";
     private Map<Integer, OrderFile> ordersMap = new HashMap<>();
+    
+    public FlooringMasteryDaoFileImpl(){
+        
+    }
+    
+    public FlooringMasteryDaoFileImpl(String testFile){
+        ORDER_FILE = testFile;
+    }
+    
 
     @Override
     public OrderFile addOrder(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {

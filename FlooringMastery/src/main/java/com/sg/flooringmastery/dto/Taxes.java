@@ -6,6 +6,7 @@
 package com.sg.flooringmastery.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  *
@@ -16,6 +17,15 @@ public class Taxes {
     private String state;
     private String stateName;
     private BigDecimal taxRate;
+    
+    public Taxes(){
+        
+    }
+    public Taxes(String state, String stateName, BigDecimal taxRate){
+        this.state = state;
+        this.stateName = stateName;
+        this.taxRate = taxRate;
+    }
 
     public String getState() {
         return state;
@@ -41,4 +51,43 @@ public class Taxes {
         this.taxRate = taxRate;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.state);
+        hash = 53 * hash + Objects.hashCode(this.stateName);
+        hash = 53 * hash + Objects.hashCode(this.taxRate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Taxes other = (Taxes) obj;
+        if (!Objects.equals(this.state, other.state)) {
+            return false;
+        }
+        if (!Objects.equals(this.stateName, other.stateName)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxRate, other.taxRate)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Taxes{" + "state=" + state + ", stateName=" + stateName + ", taxRate=" + taxRate + '}';
+    }
+
+    
 }

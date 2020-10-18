@@ -17,20 +17,23 @@ import com.sg.flooringmastery.service.FlooringMasteryServiceImpl;
 import com.sg.flooringmastery.ui.FlooringMasteryView;
 import com.sg.flooringmastery.ui.UserIO;
 import com.sg.flooringmastery.ui.UserIOConsoleImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  *
  * @author Jtooleyful
  */
 public class FlooringMasteryApp {
+
     public static void main(String[] args) {
-        UserIO myIo = new UserIOConsoleImpl();
-        FlooringMasteryDao myDao = new FlooringMasteryDaoFileImpl();
-        FlooringMasteryTaxesDao taxDao = new FlooringMasteryTaxesDaoImpl();
-        FlooringMasteryProductsDao productsDao = new FlooringMasteryProductsDaoImpl();
-        FlooringMasteryService myService = new FlooringMasteryServiceImpl(myDao, taxDao, productsDao);
-        FlooringMasteryView myView = new FlooringMasteryView(myIo);
-        FlooringMasteryController controller = new FlooringMasteryController(myService, myView);
+
+        AnnotationConfigApplicationContext appContext
+                = new AnnotationConfigApplicationContext();
+        appContext.scan("com.sg.flooringmastery");
+        appContext.refresh();
+
+        FlooringMasteryController controller
+                = appContext.getBean("flooringMasteryController", FlooringMasteryController.class);
         controller.run();
     }
 }
