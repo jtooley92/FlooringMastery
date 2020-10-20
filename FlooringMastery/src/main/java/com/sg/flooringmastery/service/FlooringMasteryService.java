@@ -23,14 +23,6 @@ public interface FlooringMasteryService {
     List<OrderFile> getAllOrders(String date) throws FloorMasteryDaoException;
     OrderFile removeOrder(int orderNumber, String date)throws FloorMasteryDaoException;
     OrderFile editOrder(int orderNumber, OrderFile orderFile, String date)throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException, FlooringMasteryProductsDaoException;
-    OrderFile getTaxRate(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException;
-    OrderFile getCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryProductsDaoException;
-    List<Taxes> readTaxFile()throws FlooringMasteryTaxesDaoException;
-    List<Products> readProductsFile()throws FlooringMasteryProductsDaoException;
-    OrderFile getMaterialCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
-    OrderFile getLaborCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
-    OrderFile getTax(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
-    OrderFile getTotal(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException;
     OrderFile getOrder(int orderNumber, String date) throws FloorMasteryDaoException;
     void export() throws FloorMasteryDaoException;
 }

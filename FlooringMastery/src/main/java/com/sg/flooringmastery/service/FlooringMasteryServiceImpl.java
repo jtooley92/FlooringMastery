@@ -82,8 +82,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return editOrder;
     }
 
-    @Override
-    public OrderFile getTaxRate(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException {
+    
+    private OrderFile getTaxRate(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryTaxesDaoException {
         String stateOne = readTaxFile().get(0).getState();
         String stateTwo = readTaxFile().get(1).getState();
         String stateThree = readTaxFile().get(2).getState();
@@ -104,22 +104,22 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return orderFile;
     }
 
-    @Override
-    public List<Taxes> readTaxFile() throws FlooringMasteryTaxesDaoException {
+    
+    private List<Taxes> readTaxFile() throws FlooringMasteryTaxesDaoException {
         List<Taxes> newTaxList = taxDao.readTaxFile();
 
         return newTaxList;
     }
 
-    @Override
-    public List<Products> readProductsFile() throws FlooringMasteryProductsDaoException {
+    
+    private List<Products> readProductsFile() throws FlooringMasteryProductsDaoException {
         List<Products> newProductsList = productsDao.readProductsFile();
 
         return newProductsList;
     }
 
-    @Override
-    public OrderFile getCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryProductsDaoException {
+    
+    private OrderFile getCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException, FlooringMasteryProductsDaoException {
         if (readProductsFile().get(0).getProductType().equals(orderFile.getProductType())) {
             orderFile.setLaborCostPerSquareFoot(readProductsFile().get(0).getLaborCostPerSquareFoot());
             orderFile.setCostPerSquareFoot(readProductsFile().get(0).getCostPerSquareFoot());
@@ -140,8 +140,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return orderFile;
     }
 
-    @Override
-    public OrderFile getMaterialCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
+    
+    private OrderFile getMaterialCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
         BigDecimal area = orderFile.getArea();
         BigDecimal costPerSquareFoot = orderFile.getCostPerSquareFoot();
         BigDecimal materialCost = area.multiply(costPerSquareFoot);
@@ -152,8 +152,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return orderFile;
     }
 
-    @Override
-    public OrderFile getLaborCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
+    
+    private OrderFile getLaborCost(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
         BigDecimal area = orderFile.getArea();
         BigDecimal laborCostPerSquareFoot = orderFile.getLaborCostPerSquareFoot();
         BigDecimal laborCost = area.multiply(laborCostPerSquareFoot);
@@ -164,8 +164,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return orderFile;
     }
 
-    @Override
-    public OrderFile getTax(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
+    
+    private OrderFile getTax(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
         BigDecimal oneHundred = new BigDecimal("100");
         BigDecimal materialCost = orderFile.getMaterialCost();
         BigDecimal laborCost = orderFile.getLaborCost();
@@ -178,8 +178,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService {
         return orderFile;
     }
 
-    @Override
-    public OrderFile getTotal(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
+   
+    private OrderFile getTotal(int orderNumber, OrderFile orderFile) throws FloorMasteryDaoException {
         BigDecimal materialCost = orderFile.getMaterialCost();
         BigDecimal laborCost = orderFile.getLaborCost();
         BigDecimal taxes = orderFile.getTax();

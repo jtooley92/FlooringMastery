@@ -30,18 +30,26 @@ public class OrderFile {
     private BigDecimal total;
 
     public OrderFile() {
-   
+
     }
     
     public OrderFile(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public OrderFile(int orderNumber, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal laborCostPerSquareFoot, BigDecimal materialCost, BigDecimal laborCost, BigDecimal tax, BigDecimal total ) {
+    public OrderFile(int orderNumber, String customerName, String state, String productType, BigDecimal area) {
         this.orderNumber = orderNumber;
         this.customerName = customerName;
         this.state = state;
-        this.taxRate =taxRate;
+        this.productType = productType;
+        this.area = area;
+    }
+
+    public OrderFile(int orderNumber, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal laborCostPerSquareFoot, BigDecimal materialCost, BigDecimal laborCost, BigDecimal tax, BigDecimal total) {
+        this.orderNumber = orderNumber;
+        this.customerName = customerName;
+        this.state = state;
+        this.taxRate = taxRate;
         this.productType = productType;
         this.area = area;
         this.costPerSquareFoot = costPerSquareFoot;
@@ -50,13 +58,13 @@ public class OrderFile {
         this.laborCost = laborCost;
         this.tax = tax;
         this.total = total;
-        
+
     }
 
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
-    
+
     public int getOrderNumber() {
         return orderNumber;
     }
@@ -220,8 +228,7 @@ public class OrderFile {
 
     @Override
     public String toString() {
-        return  + orderNumber + "\n" + customerName + "\n" + state + "\n" + taxRate + "\n" + productType + "\n" + area + "\n" + costPerSquareFoot + "\n" + laborCostPerSquareFoot + "\n" + materialCost + "\n" + laborCost + "\n" + tax + "\n" + total ;
+        return +orderNumber + "\n" + customerName + "\n" + state + "\n" + taxRate + "\n" + productType + "\n" + area + "\n" + costPerSquareFoot + "\n" + laborCostPerSquareFoot + "\n" + materialCost + "\n" + laborCost + "\n" + tax + "\n" + total;
     }
 
-    
 }
